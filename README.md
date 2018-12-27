@@ -18,8 +18,7 @@ This is the repo of the official [Yii 2.0 Framework](http://www.yiiframework.com
 
 ## About
 
-修改自官方的 yii2-docker，替换掉的官方镜像中的软件源，使用阿里云的 debian 源
-更改的官方 Dockerfile 内的 composer 安装方式，并全局配置的 composer 国内源
+修改自官方的 yii2-docker，替换掉官方镜像(debian)中的软件源，使用阿里云的 debian 源，更改的官方 Dockerfile 内的 composer 安装方式，并全局配置 composer 国内源
 其他情况看官方 yii2-docker 介绍
 
 ## 使用方法
@@ -34,9 +33,12 @@ This is the repo of the official [Yii 2.0 Framework](http://www.yiiframework.com
     docker-compose run --rm php composer
     比如创建 yii2 项目
     docker-compose run --rm php composer create-project yiisoft/yii2-app-basic /app
+    docker-compose up
     运行 http://127.0.0.1:8000 即可查看效果
     遇到 gii 403 的问题，得到容器的 ip 地址以后在 gii 配置即可
 ```
+## 截图
+![运行情况](/images/docker.png)
 
 ## 以下是官方介绍
 
