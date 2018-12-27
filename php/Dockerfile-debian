@@ -6,7 +6,16 @@ FROM php:${PHP_BASE_IMAGE_VERSION}
 
 # Install system packages for PHP extensions recommended for Yii 2.0 Framework
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && \
+RUN rm /etc/apt/sources.list.d/buster.list && \
+    echo "deb http://mirrors.aliyun.com/debian/ stretch main non-free contrib" > /etc/apt/sources.list && \
+    echo "deb-src http://mirrors.aliyun.com/debian/ stretch main non-free contrib" >> /etc/apt/sources.list && \
+    echo "deb http://mirrors.aliyun.com/debian-security stretch/updates main" >> /etc/apt/sources.list && \
+    echo "deb-src http://mirrors.aliyun.com/debian-security stretch/updates main" >> /etc/apt/sources.list && \
+    echo "deb http://mirrors.aliyun.com/debian/ stretch-updates main non-free contrib" >> /etc/apt/sources.list && \
+    echo "deb-src http://mirrors.aliyun.com/debian/ stretch-updates main non-free contrib" >> /etc/apt/sources.list && \
+    echo "deb http://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib" >> /etc/apt/sources.list && \
+    echo "deb-src http://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib" >> /etc/apt/sources.list && \
+    apt-get update && \
     apt-get -y install \
         gnupg2 && \
     apt-key update && \
@@ -15,6 +24,7 @@ RUN apt-get update && \
             g++ \
             git \
             curl \
+            wget \
             imagemagick \
             libfreetype6-dev \
             libcurl3-dev \
@@ -93,9 +103,15 @@ RUN chmod 700 \
         /usr/local/bin/composer
 
 # Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- \
-        --filename=composer.phar \
-        --install-dir=/usr/local/bin && \
+# RUN curl -sS https://getcomposer.org/installer | php -- \
+#        --filename=composer.phar \
+#        --install-dir=/usr/local/bin && \
+#    composer clear-cache
+
+# ReWrite Install composer
+RUN wget https://dl.laravel-china.org/composer.phar -O /usr/local/bin/composer && \
+    chmod a+x /usr/local/bin/composer && \
+    composer config -g repo.packagist composer https://packagist.laravel-china.org && \
     composer clear-cache
 
 # Install composer plugins
