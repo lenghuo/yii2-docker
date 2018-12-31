@@ -63,10 +63,10 @@ This is the repo of the official [Yii 2.0 Framework](http://www.yiiframework.com
 	## Windows settings
 	COMPOSE_PATH_SEPARATOR=:
 
-2. `docker-compose up -d`运行容器时出现 
-`standard_init_linux.go:195: exec user process caused "no such file or directory" `
-这样的错误，这样的错误的原因是在`win10`下用 notepad++ 编辑文件会在文件末尾加上 win 换行符，
-利用 git-bash 运行命令 `cat -v xxx.sh` xxx.sh 代表查看的文件，会发现末尾出现了 `^M`
- 这样的字符，那么我们可以在 git-bash 下运行 `dos2unix xxx.sh` 将其转换成 unix 格式的，
- 然后重新运行 `docker-compose up -d` 会发现一切正常
+2. `docker-compose up -d`运行容器时出现错误
+	`standard_init_linux.go:195: exec user process caused "no such file or directory" `
+	这样的错误，这样的错误的原因是在`win10`下用 notepad++ 编辑文件会在文件末尾加上 win 换行符，	
+	利用 git-bash 运行命令 `cat -v xxx.sh` xxx.sh 代表查看的文件，会发现末尾出现了 `^M`
+ 	这样的字符，那么我们可以在 git-bash 下运行 `dos2unix xxx.sh` 将其转换成 unix 格式的，
+ 	然后重新运行 `docker-compose up -d` 会发现一切正常
 
