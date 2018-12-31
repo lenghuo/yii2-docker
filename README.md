@@ -40,56 +40,28 @@ This is the repo of the official [Yii 2.0 Framework](http://www.yiiframework.com
 ## 截图
 ![运行情况](/images/docker.png)
 
-## 以下是官方介绍
+## 以下删除官方介绍，官方详细介绍看官方的连接
 
-### Available versions for `yiisoftware/yii2-php`
+(https://github.com/yiisoft/yii2-docker.git)
 
+# windows 中安装方法 
+## win10：
+
+假设我们已经安装好了 Docker 运行环境
+主要说下 win10 下运行镜像的注意点
+
+1. 修改 .env 
 ```
-7.2-apache, 7.1-apache, 7.0-apache, 5.6-apache
-7.2-fpm, 7.1-fpm, 7.0-fpm, 5.6-fpm
-```
+	修改下面的内容主要的原因是`win`和`linux`的路径不一样，不修改一下内容，会在`win10`下出现找不着目录的错误
+	在文件最上面可以看到这两行注释
 
-## Setup
+	## Windows settings
+	# COMPOSE_PATH_SEPARATOR=:
 
-    cp .env-dist .env
+	将其修改为下面的内容
 
-Adjust the versions in `.env` if you want to build a specific version.
+	## Windows settings
+	COMPOSE_PATH_SEPARATOR=:
 
-> **Note:** Please make sure to use a matching combination of `DOCKERFILE_FLAVOUR` and `PHP_BASE_IMAGE_VERSION`
+2. `docker-compose up -d`运行容器时出现 `standard_init_linux.go:195: exec user process caused "no such file or directory" `这样的错误，这样的错误的原因是在`win10`下用 notepad++ 编辑文件会在文件末尾加上 win 换行符，利用 git-bash 运行命令 `cat -v xxx.sh` xxx.sh 代表查看的文件，会发现末尾出现了 `^M` 这样的字符，那么我们可以在 git-bash 下运行 `dos2unix xxx.sh` 将其转换成 unix 格式的，然后重新运行 `docker-compose up -d` 会发现一切正常
 
-
-## Configuration
-
-- `PHP_ENABLE_XDEBUG` whether to load an enable Xdebug, defaults to `0` (false)
-- `PHP_USER_ID` (Debian only) user ID, when running commands as webserver (`www-data`), see also [#15](https://github.com/yiisoft/yii2-docker/issues/15)
-
-
-## Building
-
-    docker-compose build
-
-
-## Testing
-
-    docker-compose run --rm php php /tests/requirements.php
-
-### Xdebug
-
-To enable Xdebug, set `PHP_ENABLE_XDEBUG=1` in .env file
-
-Xdebug is configured to call ip `xdebug.remote_host` on `9005` port (not use standard port to avoid conflicts),
-so you have to configure your IDE to receive connections from that ip.
-
-If you are using macOS, you can fill `xdebug.remote_host` with `host.docker.internal`, due to a network limitation on mac (https://docs.docker.com/docker-for-mac/networking/#port-mapping)
-
-    ### (macOS) configuration
-    xdebug.remote_host=host.docker.internal
-
-## Documentation
-
-More information can be found in the [docs](/docs) folder.
-
-
-## FAQ
-
-- Error code `139` on Alpine for PHP `5.6-7.1` results from a broken ImageMagick installation         
