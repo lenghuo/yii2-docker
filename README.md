@@ -18,7 +18,7 @@ This is the repo of the official [Yii 2.0 Framework](http://www.yiiframework.com
 
 ## About
 
-修改自官方的 yii2-docker，替换掉官方镜像(debian)中的软件源，使用阿里云的 debian 源，更改的官方 Dockerfile 内的 composer 安装方式，并全局配置 composer 国内源
+修改自官方的 yii2-docker，替换掉官方镜像(debian)中的软件源，使用阿里云的 debian 源，更改的官方 Dockerfile 内的 composer 安装方式，并全局配置 composer 国内源,
 其他情况看官方 yii2-docker 介绍
 
 ## 使用方法
